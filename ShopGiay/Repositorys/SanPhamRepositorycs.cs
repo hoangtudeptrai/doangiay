@@ -339,5 +339,101 @@ namespace ShopGiay.Repositorys
                 throw new ArgumentException("TuDH_SanPham_XoaAnh", ex);
             }
         }
+
+        public async Task<int> ThemGoHang(int ID_ChiTietSanPham, int ID_TaiKkhoan, int SoLuong)
+        {
+            try
+            {
+                var procedureName = "TuDH_GioHang_ThemSanPham";
+                var parameters = new DynamicParameters();
+                parameters.Add("ID_ChiTietSanPham", ID_ChiTietSanPham, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("ID_TaiKhoan", ID_TaiKkhoan, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("SoLuong", SoLuong, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.ExecuteScalarAsync<int>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_GioHang_ThemSanPham", ex);
+                throw new ArgumentException("TuDH_GioHang_ThemSanPham", ex);
+            }
+        }
+
+        public async Task<int> XoaGioHang(int ID_GioHang)
+        {
+            try
+            {
+                var procedureName = "TuDH_GioHang_DeleteGioHang";
+                var parameters = new DynamicParameters();
+                parameters.Add("ID_GioHang", ID_GioHang, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.ExecuteScalarAsync<int>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_GioHang_DeleteGioHang", ex);
+                throw new ArgumentException("TuDH_GioHang_DeleteGioHang", ex);
+            }
+        }
+
+        public async Task<int> SuaGioHang(int ID_GioHang, int ID_ChiTietSanPham, int SoLuong)
+        {
+            try
+            {
+                var procedureName = "TuDH_GioHang_SuaDanhSachGioHang";
+                var parameters = new DynamicParameters();
+                parameters.Add("ID_GioHang", ID_GioHang, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("ID_ChiTietSanPham", ID_ChiTietSanPham, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("SoLuong", SoLuong, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.ExecuteScalarAsync<int>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_GioHang_SuaDanhSachGioHang", ex);
+                throw new ArgumentException("TuDH_GioHang_SuaDanhSachGioHang", ex);
+            }
+        }
+
+        public async Task<List<ThemGioHangViewModel>> listGioHang(int ID_TaiKhoan)
+        {
+            try
+            {
+                var procedureName = "TuDH_GioHang_GetGioHang";
+                var parameters = new DynamicParameters();
+                parameters.Add("ID_TaiKhoan", ID_TaiKhoan, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.QueryAsync<ThemGioHangViewModel>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: 150);
+
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_GioHang_GetGioHang", ex);
+                throw new ArgumentException("TuDH_GioHang_GetGioHang", ex);
+            }
+        }
     }
 }

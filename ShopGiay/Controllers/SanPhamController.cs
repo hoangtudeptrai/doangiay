@@ -176,5 +176,71 @@ namespace ShopGiay.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+
+
+        [HttpGet("listGioHang")]
+        public async Task<IActionResult> listGioHang(int ID_TaiKhoan)
+        {
+            try
+            {
+                List<ThemGioHangViewModel> result = await _sanPhamRepository.listGioHang(ID_TaiKhoan);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("ThemGoHang")]
+        public async Task<IActionResult> ThemGoHang(int ID_ChiTietSanPham, int ID_TaiKkhoan, int SoLuong)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.ThemGoHang(ID_ChiTietSanPham, ID_TaiKkhoan, SoLuong);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpPost("XoaGioHang")]
+        public async Task<IActionResult> XoaGioHang(int ID_GioHang)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.XoaGioHang(ID_GioHang);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpPost("SuaGioHang")]
+        public async Task<IActionResult> SuaGioHang(int ID_GioHang, int ID_ChiTietSanPham, int SoLuong)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.SuaGioHang(ID_GioHang, ID_ChiTietSanPham, SoLuong);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

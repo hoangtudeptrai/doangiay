@@ -271,5 +271,119 @@ namespace ShopGiay.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpGet("listDiaChiNhanHang")]
+        public async Task<IActionResult> listDiaChiNhanHang(int ID_TaiKhoan)
+        {
+            try
+            {
+                List<DiaChiNhanHangViewModel> result = await _danhMucRepository.listDiaChiNhanHang(ID_TaiKhoan);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
+        }
+        [HttpPost("ThemDiaChi")]
+        public async Task<IActionResult> ThemDiaChi(int ID_TaiKhoan, string DiaChi)
+        {
+            try
+            {
+                var result = await _danhMucRepository.ThemDiaChi(ID_TaiKhoan, DiaChi);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost("XoaDiaChi")]
+        public async Task<IActionResult> XoaDiaChi(int ID_DiaChiNhanHang)
+        {
+            try
+            {
+                var result = await _danhMucRepository.XoaDiaChi(ID_DiaChiNhanHang);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("lisDanhGia")]
+        public async Task<IActionResult> lisDanhGia(int ID_SanPham)
+        {
+            try
+            {
+                List<DanhGiaViewModel> result = await _danhMucRepository.lisDanhGia(ID_SanPham);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("ThemDanhGia")]
+        public async Task<IActionResult> ThemDanhGia(int ID_SanPham, int ID_TaiKhoan, string DanhGia)
+        {
+            try
+            {
+                var result = await _danhMucRepository.ThemDanhGia(ID_SanPham, ID_TaiKhoan, DanhGia);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost("SuaDanhGia")]
+        public async Task<IActionResult> SuaDanhGia(int ID_DanhGia, string DanhGia)
+        {
+            try
+            {
+                var result = await _danhMucRepository.SuaDanhGia(ID_DanhGia, DanhGia);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost("XoaDanhGia")]
+        public async Task<IActionResult> XoaDanhGia(int ID_DanhGia)
+        {
+            try
+            {
+                var result = await _danhMucRepository.XoaDanhGia(ID_DanhGia);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

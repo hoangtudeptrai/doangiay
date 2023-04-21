@@ -19,6 +19,18 @@ namespace ShopGiay.Interfaces
         public Task<List<DM_NhanHieuViewModel>> ListNhanHieu();
 
 
+        public Task<int> ThemDiaChi(int ID_TaiKhoan, string DiaChi);
+        public Task<int> XoaDiaChi(int ID_DiaChiNhanHang);
+        public Task<List<DiaChiNhanHangViewModel>> listDiaChiNhanHang(int ID_TaiKhoan);
+
+
+        public Task<int> ThemDanhGia(int ID_SanPham, int ID_TaiKhoan, string DanhGia);
+        public Task<int> SuaDanhGia(int ID_DanhGia, string DanhGia);
+        public Task<int> XoaDanhGia(int ID_DanhGia);
+        public Task<List<DanhGiaViewModel>> lisDanhGia(int ID_SanPham);
+
+
+
 
     }
 }

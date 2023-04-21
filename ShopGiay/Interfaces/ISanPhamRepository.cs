@@ -22,6 +22,13 @@ namespace ShopGiay.Interfaces
         public Task<int> XoaAnh(int ID_SanPham);
 
 
+        public Task<int> ThemGoHang(int ID_ChiTietSanPham, int ID_TaiKkhoan, int SoLuong);
+        public Task<int> XoaGioHang(int ID_GioHang);
+        public Task<int> SuaGioHang(int ID_GioHang, int ID_ChiTietSanPham, int SoLuong);
+        public Task<List<ThemGioHangViewModel>> listGioHang(int ID_TaiKhoan);
+
+
+
 
 
 
