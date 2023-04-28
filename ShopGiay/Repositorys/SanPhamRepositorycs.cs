@@ -435,5 +435,76 @@ namespace ShopGiay.Repositorys
                 throw new ArgumentException("TuDH_GioHang_GetGioHang", ex);
             }
         }
+
+        public async Task<int> ThanhToanHoaDon(string ListID_GioHang, int ID_TaiKkhoan, int ID_MaGiamGia)
+        {
+            try
+            {
+                var procedureName = "TuDH_HoaDon_ThanhToanHoaDon";
+                var parameters = new DynamicParameters();
+                parameters.Add("ListID_GioHang", ListID_GioHang, DbType.String, ParameterDirection.Input);
+                parameters.Add("ID_TaiKhoan", ID_TaiKkhoan, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("ID_MaGiamGia", ID_MaGiamGia, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.ExecuteScalarAsync<int>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_HoaDon_ThanhToanHoaDon", ex);
+                throw new ArgumentException("TuDH_HoaDon_ThanhToanHoaDon", ex);
+            }
+        }
+
+        public async Task<int> XoaHoaDon(int ID_HoaDon)
+        {
+            try
+            {
+                var procedureName = "TuDH_HoaDon_HuyHoaDon";
+                var parameters = new DynamicParameters();
+                parameters.Add("ID_HoaDon", ID_HoaDon, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.ExecuteScalarAsync<int>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_HoaDon_HuyHoaDon", ex);
+                throw new ArgumentException("TuDH_HoaDon_HuyHoaDon", ex);
+            }
+        }
+
+        public async Task<List<HoaDonViewModel>> listHoaDon(int ID_TaiKhoan)
+        {
+            try
+            {
+                var procedureName = "TuDH_HoaDon_DanhSachHoaDon";
+                var parameters = new DynamicParameters();
+                parameters.Add("ID_TaiKhoan", ID_TaiKhoan, DbType.Int32, ParameterDirection.Input);
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.QueryAsync<HoaDonViewModel>
+                        (procedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: 150);
+
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("TuDH_HoaDon_DanhSachHoaDon", ex);
+                throw new ArgumentException("TuDH_HoaDon_DanhSachHoaDon", ex);
+            }
+        }
     }
 }

@@ -242,5 +242,58 @@ namespace ShopGiay.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+
+
+
+
+
+        [HttpGet("listHoaDon")]
+        public async Task<IActionResult> listHoaDon(int ID_TaiKhoan)
+        {
+            try
+            {
+                List<HoaDonViewModel> result = await _sanPhamRepository.listHoaDon(ID_TaiKhoan);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("ThanhToanHoaDon")]
+        public async Task<IActionResult> ThanhToanHoaDon(string ListID_GioHang, int ID_TaiKkhoan, int ID_MaGiamGia)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.ThanhToanHoaDon(ListID_GioHang, ID_TaiKkhoan, ID_MaGiamGia);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpPost("XoaHoaDon")]
+        public async Task<IActionResult> XoaHoaDon(int ID_HoaDon)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.XoaHoaDon(ID_HoaDon);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
