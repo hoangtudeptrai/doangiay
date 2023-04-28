@@ -262,6 +262,20 @@ namespace ShopGiay.Controllers
                 return StatusCode(500);
             }
         }
+        [HttpGet("listGChiTietHoaDon")]
+        public async Task<IActionResult> listGChiTietHoaDon(int ID_HoaDon)
+        {
+            try
+            {
+                List<ThemGioHangViewModel> result = await _sanPhamRepository.listGChiTietHoaDon(ID_HoaDon);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
+        }
 
         [HttpPost("ThanhToanHoaDon")]
         public async Task<IActionResult> ThanhToanHoaDon(string ListID_GioHang, int ID_TaiKkhoan, int ID_MaGiamGia)
@@ -285,6 +299,54 @@ namespace ShopGiay.Controllers
             try
             {
                 var result = await _sanPhamRepository.XoaHoaDon(ID_HoaDon);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+        [HttpGet("listMaGiamGia")]
+        public async Task<IActionResult> listMaGiamGia()
+        {
+            try
+            {
+                List<MaGiamGiaViewModelcs> result = await _sanPhamRepository.listMaGiamGia();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500);
+            }
+        }
+        [HttpPost("XoaMaGiamGia")]
+        public async Task<IActionResult> XoaMaGiamGia(int ID_MaGiamGia)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.XoaMaGiamGia( ID_MaGiamGia);
+
+                return Ok(new { value = result, flag = true });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpPost("ThemMaGiamGia")]
+        public async Task<IActionResult> ThemMaGiamGia(string MaGiamGia, int GiaTri, int LoaiGiamGia)
+        {
+            try
+            {
+                var result = await _sanPhamRepository.ThemMaGiamGia(MaGiamGia, GiaTri, LoaiGiamGia);
 
                 return Ok(new { value = result, flag = true });
 

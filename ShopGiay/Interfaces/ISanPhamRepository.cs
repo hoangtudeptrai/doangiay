@@ -32,6 +32,14 @@ namespace ShopGiay.Interfaces
         public Task<int> ThanhToanHoaDon (string ListID_GioHang, int ID_TaiKkhoan, int ID_MaGiamGia);
         public Task<int> XoaHoaDon(int ID_HoaDon);
         public Task<List<HoaDonViewModel>> listHoaDon(int ID_TaiKhoan);
+        public Task<List<ThemGioHangViewModel>> listGChiTietHoaDon(int ID_HoaDon);
+
+
+
+
+        public Task<List<MaGiamGiaViewModelcs>> listMaGiamGia();
+        public Task<int> ThemMaGiamGia(string MaGiamGia, int GiaTri, int LoaiGiamGia);
+        public Task<int> XoaMaGiamGia(int ID_MaGiamGia);
 
 
     }
