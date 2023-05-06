@@ -72,11 +72,11 @@ namespace ShopGiay
            .AllowAnyHeader());
 
 
-            //app.UseStaticFiles(
-            //   new StaticFileOptions
-            //   {
-            //       FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Files/Upload"))
-            //   });
+            app.UseStaticFiles(
+               new StaticFileOptions
+               {
+                   FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Files/Upload"))
+               });
 
             app.UseHttpsRedirection();
 

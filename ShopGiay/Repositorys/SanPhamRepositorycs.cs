@@ -121,7 +121,7 @@ namespace ShopGiay.Repositorys
                     };
 
                     ImageViewModel attachment = new ImageViewModel();
-                    attachment.URL = "HoSo_FileDinhKem/" + path_date + fileName + ticks + "." + extention;
+                    attachment.URL = "FileDinhKem/" + path_date + fileName + ticks + "." + extention;
                     attachment.ID_SanPham = ID_SanPham;
                     list.Add(attachment);
                 }
